@@ -1,4 +1,4 @@
 # 屏蔽data内的文件
 data/
-
 pts/
+__pycache__
