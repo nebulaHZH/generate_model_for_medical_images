@@ -12,3 +12,8 @@
     I realized the VAE model. But the result may really bad.you can see the result of 50 epochs.
 | ![alt text](example/v1_0_0_origin.png) | ![alt text](example/v1_0_0_generate.png) |
 | :------------------------------------: | :------------------------------------: |
+
+
+#### v1.0.2 2025/06/30
+    使用jupyter 运行一个人家写好的ddpm代码，用的是hugface的diffuers代码
+    完成了基础模块，现在需要把人家的模型训练自己的训练集
