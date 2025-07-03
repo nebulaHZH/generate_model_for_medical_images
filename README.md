@@ -1,12 +1,25 @@
 # project introduction
     this project is a continue learning project for me. I stored every tag for my experiment.
 
-###  aim
+##  aim
     1. I want to realize the VAE model and generate some medical images.
     2. I want to realize the Diffusion model and contact with the VAE model.
     3. compare my model with the original model or orther model as a baseline.
+## relevent model realized
+### 1. latent diffusion model
+    the detail structure of the model if shown in the images bellow:
+<img src="./example/v1_0_1_structure.png" />
 
-### version details list
+#### forward process
+##### 1. input our images to the autoencoder
+##### 2. autoencoder outputs the latent space representation
+##### 3. use the latent space representation to next step : DDPM Forward process
+
+#### backward process
+##### 4. DDPM Backward process
+##### 5. use the latent space representation to next step : autoencoder
+##### 6. autoencoder outputs the reconstructed images
+## version details list
     In this part , I will record the every experiment version.
 #### v1.0.0 2025/06/28 
     I realized the VAE model. But the result may really bad.you can see the result of 50 epochs.
