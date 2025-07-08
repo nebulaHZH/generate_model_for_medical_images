@@ -48,7 +48,6 @@ if __name__ == '__main__':
     # 显示一个batch的形状
     image:torch.Tensor = next(iter(data_loader)) 
     image = image[0]
-    print(image.shape)
     # 展示图片
     import matplotlib.pyplot as plt
     plt.imshow(image.cpu().permute(1,2,0).numpy(), cmap='gray')

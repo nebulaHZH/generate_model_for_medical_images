@@ -1,7 +1,7 @@
 import torch
 
 from config.configs import Configs
-from ..scheduler import Scheduler
+from train.scheduler import Scheduler
 
 
 class DDPMScheduler(Scheduler):
@@ -39,7 +39,7 @@ class DDPMScheduler(Scheduler):
         # 其中, σ_t^2 = ( 1-α_bar_(t-1)/1-α_bar_t ) β_t
         variance = 0
         if timestep > 0:
-            z = torch.randn(noise_pred.shape).to(self.config.device)
+            z = torch.randn(noise_pred.shape).to(device=self.config.device)
             variance = (1 - alpha_bar_at_prev_t) / (1 - alpha_bar_at_t) * current_beta_t
             variance = torch.clamp(variance, min=1e-20)
             variance = torch.sqrt(variance) * z

@@ -1,5 +1,7 @@
 from typing import NamedTuple
 
+import torch
+
 class Configs(NamedTuple):
     # 项目名称
     proj_name: str
@@ -8,7 +10,7 @@ class Configs(NamedTuple):
     # 批次大小
     batch: int
     # 设备
-    device: str
+    device: torch.device
     # 训练周期
     epochs: int
     # 保存周期
@@ -28,7 +30,11 @@ class Configs(NamedTuple):
     # 图像尺寸
     clip: float
     data_path: str
-    image_size: int
+    
     num_classes: int
     num_inference_steps: int
+
+    # 图像部分
+    ch_input: int = 1
+    image_size: int = 256
     

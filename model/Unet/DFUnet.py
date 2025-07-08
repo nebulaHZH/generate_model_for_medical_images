@@ -48,8 +48,8 @@ class DFUNet(nn.Module):
     
 if __name__ == '__main__':
     dnf_unet = DFUNet(
-        ch_input=3,
-        ch_output=3,
+        ch_input=1,
+        ch_output=1,
         image_size=256,
         layers=2,
         base_channels=64,
@@ -57,7 +57,7 @@ if __name__ == '__main__':
         num_blocks=6
     )
     # 测试DNFUnet，这的batch_size必须和time step 保持一致
-    x = torch.randn(3, 3, 256, 256)
+    x = torch.randn(3, 1, 256, 256)
     ts = torch.randn([3])
     out = dnf_unet.forward(x, ts)
     print(x)

@@ -7,6 +7,40 @@ import math
 import torch
 import os
 
+class Plotter:
+    def __init__(self, images:torch.Tensor, title: str,save_dir: Optional[str | None] = None) -> None:
+        self.images = images
+        self.title = title
+        self.save_dir = save_dir
+    
+    def plot(self):
+        d = self.images.dim()
+        if d == 4:
+            i = self.images.shape[0]
+            images = self.images.split(1,dim=0)
+        else:
+            images = [self.images]
+        if len(images) == 1:
+            rows = 1
+            cols = 1
+        else:
+            rows = 2
+            cols = len(images) // 2
+        fig, axes = pyplot.subplots(rows, cols, 
+                                figsize=(cols * 4, rows * 4),  # 每个子图4英寸
+                                squeeze=False)
+        for i, image in enumerate(images):
+            # print(image.squeeze(0).shape)
+            img = image.squeeze(0).detach().cpu().numpy().transpose(1, 2, 0)
+            axes[i // cols, i % cols].imshow(img,cmap='gray')
+            axes[i // cols, i % cols].set_title(f"image {i}")
+            axes[i // cols, i % cols].axis('off')
+        fig.suptitle(self.title)
+        if self.save_dir is not None:
+            os.makedirs(self.save_dir, exist_ok=True)  # 确保目录存在
+            pyplot.savefig(os.path.join(self.save_dir, self.title + ".png"))
+        pyplot.show()
+
 
 def plot_images(
         images: 'torch.Tensor',

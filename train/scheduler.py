@@ -49,6 +49,7 @@ class Scheduler:
         while len(sqrt_one_minus_alpha_prod.shape) < len(image.shape):
             sqrt_one_minus_alpha_prod = sqrt_one_minus_alpha_prod.unsqueeze(-1)
         # √ᾱ_t*x_0 + √(1-ᾱ_t)*ε
+        x,y = image.device , noise.device
         noisy_samples = sqrt_alpha_prod * image + sqrt_one_minus_alpha_prod * noise 
         return noisy_samples
 
