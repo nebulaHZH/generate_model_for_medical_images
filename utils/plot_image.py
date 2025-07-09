@@ -25,7 +25,7 @@ class Plotter:
             cols = 1
         else:
             rows = 2
-            cols = len(images) // 2
+            cols = (len(images)+1) // 2
         fig, axes = pyplot.subplots(rows, cols, 
                                 figsize=(cols * 4, rows * 4),  # 每个子图4英寸
                                 squeeze=False)
@@ -33,7 +33,7 @@ class Plotter:
             # print(image.squeeze(0).shape)
             img = image.squeeze(0).detach().cpu().numpy().transpose(1, 2, 0)
             axes[i // cols, i % cols].imshow(img,cmap='gray')
-            axes[i // cols, i % cols].set_title(f"image {i}")
+            axes[i // cols, i % cols].set_title(f"image {i},length:{len(images)}")
             axes[i // cols, i % cols].axis('off')
         fig.suptitle(self.title)
         if self.save_dir is not None:

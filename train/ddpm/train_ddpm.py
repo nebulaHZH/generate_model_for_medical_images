@@ -9,7 +9,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from torch.optim.lr_scheduler import CosineAnnealingLR
-from utils.add_noise import inference
+from utils.add_noise import generate_image, inference
 from ddpm.DDPMScheduler import DDPMScheduler
 from dataclasses import dataclass
 from config.configs import Configs
@@ -22,17 +22,15 @@ config = Configs(
     image_size=256,
     num_classes=2,
     batch=4,
-    epochs=1000,
+    epochs=300,
     lr=1e-4,
     save_period=10,
     proj_name="test",
     device=torch.device("cuda:0" if torch.cuda.is_available() else "cpu"),
     sample_period=10,
     clip=1.0,
-    num_inference_steps=100,
-    num_inference_images=1,
-    num_train_timesteps=1000,
-    num_inference_timesteps=1000,
+    num_train_timesteps=2000,
+    num_inference_timesteps=100,
     beta_start=0.0001,
     beta_end=0.005,
 )
@@ -100,12 +98,8 @@ if __name__ == "__main__":
     model.eval()
     # 根据保存的模型生成数据集图像
     # 模型生成tensor
-    images = inference(
+    images = generate_image(
         model=model,
-        scheduler=scheduler,
-        images=config.num_inference_images,
-        input_channels=config.ch_input,
-        train_image_size=config.image_size,
-        device=config.device,
+        scheduler=scheduler
         )
-    Plotter(images,f"epoch_{config.epochs+1}").plot()
+    # Plotter(images,f"epoch_{config.epochs+1}").plot()

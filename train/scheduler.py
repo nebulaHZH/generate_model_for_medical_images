@@ -11,7 +11,7 @@ class Scheduler:
         # 设置训练和推理的步数
         self.num_train_timesteps: int = self.config.num_train_timesteps
         self.num_inference_steps: int = self.config.num_inference_timesteps
-        self.set_timesteps(self.num_inference_steps)        # 初始化 timesteps
+        self.set_timesteps()        # 初始化 timesteps
 
         # 创建从 start 到 end 的一个 beta 的数组
         self.beta_start: float = self.config.beta_start
@@ -20,12 +20,11 @@ class Scheduler:
         self.alphas = 1.0 - self.betas      # alpha = 1 - beta
         self.alphas_cumprod = torch.cumprod(self.alphas, dim=0)     # alphas_cumprod 即 α_bar
 
-    def set_timesteps(self, inference_steps: int):
+    def set_timesteps(self):
         '''
         生成一个时间序列的数组
         '''
-        self.num_inference_steps = inference_steps
-        step_ratio = self.num_train_timesteps // self.num_inference_steps
+        step_ratio = self.num_train_timesteps // self.num_inference_steps # 时间步长
         timesteps = (numpy.arange(0, self.num_inference_steps) * step_ratio).round()[::-1].copy().astype(numpy.int64)
         self.inf_timesteps = torch.from_numpy(timesteps).to(self.config.device)
 
@@ -49,7 +48,6 @@ class Scheduler:
         while len(sqrt_one_minus_alpha_prod.shape) < len(image.shape):
             sqrt_one_minus_alpha_prod = sqrt_one_minus_alpha_prod.unsqueeze(-1)
         # √ᾱ_t*x_0 + √(1-ᾱ_t)*ε
-        x,y = image.device , noise.device
         noisy_samples = sqrt_alpha_prod * image + sqrt_one_minus_alpha_prod * noise 
         return noisy_samples
 
