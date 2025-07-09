@@ -19,7 +19,7 @@ class ImageData(Dataset):
             v2.Resize((self.target_size, self.target_size),InterpolationMode.BILINEAR),
             v2.PILToTensor(),
             v2.ConvertImageDtype(torch.float32),
-            v2.Normalize([1275],[127.5])
+            v2.Normalize([127.5],[127.5])
         ])
         self.device = device
         self.load_all = load_all

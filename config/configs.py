@@ -17,8 +17,6 @@ class Configs(NamedTuple):
     save_period: int
     # 样本周期
     sample_period: int
-    # 推理图像数量
-    num_inference_images: int
     # 训练时间步数
     num_train_timesteps: int
     # 推理时间步数
@@ -32,7 +30,6 @@ class Configs(NamedTuple):
     data_path: str
     
     num_classes: int
-    num_inference_steps: int
 
     # 图像部分
     ch_input: int = 1
